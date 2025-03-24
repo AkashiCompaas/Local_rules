@@ -1017,7 +1017,7 @@
   </rule>
 
 <!-- File modified in the Downloads folder -->
-  <rule id="180011" level="7">
+  <rule id="140011" level="7">
     <if_sid>554</if_sid>
     <field name="file" type="pcre2">(?i)C:\\Users.+Downloads</field>
     <description>File added to the Downloads folder.</description>
