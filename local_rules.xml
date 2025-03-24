@@ -207,26 +207,26 @@
 </group>
 
 <group name="blackbasta,">
-  <rule id="190010" level="3">
+  <rule id="120010" level="3">
     <if_sid>61613</if_sid>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)(\\\\Temp\\\\dlaksjdoiwq.jpg|\\\\Temp\\\\fkdjsadasd.ico)</field>
     <description>The file $(win.eventdata.targetFilename) which has been associated with black basta malware was created in the TEMP directory. Possible Black basta ransomware activity.</description>
   </rule>
 
-<rule id="190012" level="5">
+<rule id="120012" level="5">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)vssadmin.exe.+delete.+shadows</field>
     <description>Vssadmin.exe was used to delete a shadow copy. Possible ransomware activity.</description>
 </rule>
 
-<rule id="190013" level="3">
+<rule id="120013" level="3">
     <if_sid>61613</if_sid>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)[c-z]:(\\\\programdata\\.+readme\.txt)</field>
     <description>The file $(win.eventdata.targetFilename) was created.</description>
 </rule>
 
-  <rule id="190014" level="15" timeframe="100" frequency="2">
-    <if_matched_sid>190013</if_matched_sid>
+  <rule id="120014" level="15" timeframe="100" frequency="2">
+    <if_matched_sid>120013</if_matched_sid>
     <description>Readme.txt file has been created in multiple system directories in a short timeframe. Possible ransomware activity.</description>
   </rule>
 </group>
@@ -398,7 +398,7 @@
   </rule>
  
   <rule id="190100" level="0">
-    <if_sid>100200</if_sid>
+    <if_sid>159200</if_sid>
     <field name="win.eventdata.sourceImage" type="pcre2">(C:\\\\Windows\\\\system32)|chrome.exe</field>
     <description>Ignore Windows binaries and Chrome</description>
   </rule>
@@ -442,7 +442,7 @@
     </mitre>
   </rule>
   
-  <rule id="190106" level="10" overwrite="yes">
+  <rule id="190106" level="10">
     <if_sid>61615</if_sid>
     <field name="win.eventdata.eventType" type="pcre2" >^SetValue$</field>
     <field name="win.eventdata.Image" type="pcre2">(?i)[C-Z]:.*.\\[7ZipRar].*sfx.*\\.*</field>
@@ -452,13 +452,13 @@
     </mitre>
   </rule>
   
-  <rule id="190107" level="10" overwrite="yes">
+  <rule id="190107" level="10">
     <if_sid>61609</if_sid>
     <field name="win.eventdata.ImageLoaded" type="pcre2">(?i)[C-Z]:.*.\\[7ZipRar].*sfx.*exe</field>
     <description>The image $(win.eventdata.image) loaded a file $(win.eventdata.imageLoaded). SFX archive activity detected.</description>
   </rule>
   
-  <rule id="190108" level="10" overwrite="yes">
+  <rule id="190108" level="10">
     <if_sid>61609</if_sid>
     <field name="win.eventdata.Image" type="pcre2">(?i)[C-Z]:.*.\\[7ZipRar].*sfx.*exe</field>
     <description>The suspicious image, $(win.eventdata.image), loaded the executable $(win.eventdata.imageLoaded). SFX archive activity detected.</description>
@@ -1026,14 +1026,14 @@
 
 <!--  Rule for the decoder (yara_decoder) -->
 <group name="yara,">
-  <rule id="150100" level="0">
+  <rule id="110100" level="0">
     <decoded_as>yara_decoder</decoded_as>
     <description>Yara grouping rule</description>
   </rule>
 
 
 <!--  YARA scan detects a positive match -->
-  <rule id="150110" level="7">
+  <rule id="130110" level="7">
     <if_sid>150100</if_sid>
     <match type="pcre2">wazuh-yara: INFO - Scan result: </match>
     <description>Yara scan result: File "$(yara_scanned_file)" is a positive match. Yara rule: $(yara_rule)</description>
@@ -1435,14 +1435,14 @@
 </group>
 <!-- File added to the Downloads folder -->
 <group name= "syscheck,">
-  <rule id="120010" level="7">
+  <rule id="150010" level="7">
     <if_sid>550</if_sid>
     <field name="file" type="pcre2">(?i)C:\\Users.+Downloads</field>
     <description>File modified in the Downloads folder.</description>
   </rule>
 
 <!-- File modified in the Downloads folder -->
-  <rule id="120011" level="7">
+  <rule id="150011" level="7">
     <if_sid>554</if_sid>
     <field name="file" type="pcre2">(?i)C:\\Users.+Downloads</field>
     <description>File added to the Downloads folder.</description>
@@ -1451,27 +1451,27 @@
 
 <!--  Rule for the decoder (yara_decoder) -->
 <group name="yara,">
-  <rule id="120012" level="0">
+  <rule id="150012" level="0">
     <decoded_as>yara_decoder</decoded_as>
     <description>Yara grouping rule</description>
   </rule>
 
 
 <!--  YARA scan detects a positive match -->
-  <rule id="120013" level="7">
-    <if_sid>120012</if_sid>
+  <rule id="150013" level="7">
+    <if_sid>150012</if_sid>
     <match type="pcre2">wazuh-yara: INFO - Scan result: </match>
     <description>Yara scan result: File "$(yara_scanned_file)" is a positive match. Yara rule: $(yara_rule)</description>
   </rule>
-  <rule id="120014" level="7">
-    <if_sid>120012</if_sid>
+  <rule id="150014" level="7">
+    <if_sid>150012</if_sid>
     <match type="pcre2">wazuh-yara: INFO - Successfully deleted: </match>
     <description>Active Response: Successfully removed "$(yara_scanned_file)". YARA rule: $(yara_rule)</description>
   </rule>
 
 <!--  Wazuh encounters an error when deleting malware with a positive match -->
   <rule id="120015" level="12">
-    <if_sid>120012</if_sid>
+    <if_sid>150012</if_sid>
     <match type="pcre2">wazuh-yara: INFO - Error removing threat: </match>
 <description>Active Response: Error removing "$(yara_scanned_file)". YARA rule: $(yara_rule)</description>
   </rule>
