@@ -397,7 +397,7 @@
     </mitre>
   </rule>
  
-  <rule id="100100" level="0">
+  <rule id="190100" level="0">
     <if_sid>100200</if_sid>
     <field name="win.eventdata.sourceImage" type="pcre2">(C:\\\\Windows\\\\system32)|chrome.exe</field>
     <description>Ignore Windows binaries and Chrome</description>
@@ -406,7 +406,7 @@
 
 <group name="sfx_archives">
 
-  <rule id="100102" level="10">
+  <rule id="190102" level="10">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.CommandLine" type="pcre2">(?i)[C-Z]:.*.\\[7ZipRar_].*sfx.*\\*|.*\\7z.*</field>
     <description>SFX archive command, $(win.eventdata.CommandLine) invoked the application $(win.eventdata.OriginalFileName).</description>
@@ -415,7 +415,7 @@
     </mitre>
   </rule>
   
-  <rule id="100103" level="10">
+  <rule id="190103" level="10">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.CurrentDirectory" type="pcre2">(?i)[C-Z]:.*.\\[7ZipRar_].*sfx.*\\*|.*\\7z.*</field>
     <description>SFX archive command, $(win.eventdata.CommandLine) executed from $(win.eventdata.CurrentDirectory).</description>
@@ -424,7 +424,7 @@
     </mitre>
   </rule>
 
-  <rule id="100104" level="10">
+  <rule id="190104" level="10">
     <if_sid>61613</if_sid>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)[C-Z]:.*.\\[7ZipRar_].*sfx.*\\*|.*\\7z.*</field>
     <description>The file $(win.eventdata.targetFilename) has been created by $(win.eventdata.image). SFX archive activity detected.</description>
@@ -433,7 +433,7 @@
     </mitre>
   </rule>
 
-  <rule id="100105" level="10">
+  <rule id="190105" level="10">
     <if_sid>92213</if_sid>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)[C-Z]:.*.\\[7ZipRar_].*sfx.*\\*|.*\\7z.*</field>
     <description>The file $(win.eventdata.targetFilename) has been created by $(win.eventdata.image). SFX archive activity detected.</description>
@@ -442,7 +442,7 @@
     </mitre>
   </rule>
   
-  <rule id="100106" level="10" overwrite="yes">
+  <rule id="190106" level="10" overwrite="yes">
     <if_sid>61615</if_sid>
     <field name="win.eventdata.eventType" type="pcre2" >^SetValue$</field>
     <field name="win.eventdata.Image" type="pcre2">(?i)[C-Z]:.*.\\[7ZipRar].*sfx.*\\.*</field>
@@ -452,13 +452,13 @@
     </mitre>
   </rule>
   
-  <rule id="100107" level="10" overwrite="yes">
+  <rule id="190107" level="10" overwrite="yes">
     <if_sid>61609</if_sid>
     <field name="win.eventdata.ImageLoaded" type="pcre2">(?i)[C-Z]:.*.\\[7ZipRar].*sfx.*exe</field>
     <description>The image $(win.eventdata.image) loaded a file $(win.eventdata.imageLoaded). SFX archive activity detected.</description>
   </rule>
   
-  <rule id="100108" level="10" overwrite="yes">
+  <rule id="190108" level="10" overwrite="yes">
     <if_sid>61609</if_sid>
     <field name="win.eventdata.Image" type="pcre2">(?i)[C-Z]:.*.\\[7ZipRar].*sfx.*exe</field>
     <description>The suspicious image, $(win.eventdata.image), loaded the executable $(win.eventdata.imageLoaded). SFX archive activity detected.</description>
@@ -488,7 +488,7 @@
 <group name="windows,sysmon,">
 
 <!-- Command Prompt reading and executing the contents of a file  -->
-  <rule id="100100" level="12">
+  <rule id="170100" level="12">
     <if_sid>92004</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)cmd\.exe$</field>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)cmd\.exe.+((\/r)|(\/v\.+\/c)|(\/c)).*cmd</field>
@@ -499,7 +499,7 @@
   </rule>
 
 <!-- msiexec.exe downloading and executing packages -->
-  <rule id="100101" level="7">
+  <rule id="170101" level="7">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)msiexec\.exe$</field>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)msiexec.*(\/q|\-q|\/i|\-i).*(\/q|\-q|\/i|\-i).*http[s]{0,1}\:\/\/.+[.msi]{0,1}</field>
@@ -510,8 +510,8 @@
   </rule>
 
 <!-- This rule matches connections URLs that match the Raspberry Robin URL format -->
-  <rule id="100102" level="12">
-    <if_sid>100101</if_sid>
+  <rule id="170102" level="12">
+    <if_sid>170101</if_sid>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)m.*s.*i.*e.*x.*e.*c.*(-.*q|\/.*q|\-.*i|\/.*i).*(-.*i|\/.*i|\-.*q|\/.*q).*http[s]{0,1}\:\/\/[a-zA-Z0-9]{2,4}\.[a-zA-Z0-9]{2,6}\:8080\/[a-zA-Z0-9]+\/.*?(?:-|\=|\?).*?</field>
     <description>Possible Raspberry Robin execution: msiexec.exe downloading and executing packages on $(win.system.computer)</description>
     <mitre>
@@ -520,7 +520,7 @@
   </rule> 
 
 <!-- Bypass User Account Control using Fodhelper  -->
-  <rule id="100103" level="12">
+  <rule id="170103" level="12">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.originalFileName" type="pcre2">(?i)(cmd|powershell|rundll32)\.exe</field>
     <field name="win.eventdata.parentImage" type="pcre2">(?i)fodhelper\.exe</field>
@@ -531,7 +531,7 @@
   </rule>
 
 <!-- Legitimate Windows utilities used to load DLLs : Execute Arbitrary DLL  -->
-  <rule id="100104" level="12">
+  <rule id="170104" level="12">
     <if_sid>61603</if_sid>
     <if_group>sysmon_event1</if_group>
     <field name="win.eventdata.commandLine" type="pcre2">(?i)(odbcconf(\.exe)??\s+((\/s)|(-s))??.*((\/a)|(-a)) \{regsvr)|((rundll32\.exe|shell32).*shellexec_rundll.*(odbcconf\.exe|msiexec|control\.exe))</field>
@@ -542,7 +542,7 @@
   </rule> 
 
 <!-- Network connections from the command line with no parameters  -->
-  <rule id="100105" level="10">
+  <rule id="170105" level="10">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.commandLine" type="pcre2">(regsvr32\.exe|rundll32\.exe|dllhost\.exe).*\\";document.write\(\);GetObject\(\\"script:.*\).Exec\(\)</field>
     <description>Possible Raspberry Robin execution: Network connections from the command line with no parameters on $(win.system.computer)</description>
@@ -664,7 +664,7 @@
 </group>
 
 <group name="attack,">
-    <rule id="100100" level="10">
+    <rule id="180100" level="10">
       <if_group>web|attack|attacks</if_group>
       <list field="srcip" lookup="address_match_key">etc/lists/blacklist-alienvault</list>
       <description>IP in black list.</description>
@@ -867,7 +867,7 @@
 <group name="performance_metric,">
 
 <!-- High memory usage -->
-<rule id="100101" level="12">
+<rule id="160101" level="12">
   <decoded_as>memory_health</decoded_as>
   <field type="pcre2" name="memory_usage_%">^(0*[8-9]\d|0*[1-9]\d{2,})</field>
   <description>Memory usage is high: $(memory_usage_%)%</description>
@@ -875,7 +875,7 @@
 </rule>
 
 <!-- High CPU usage -->
-<rule id="100102" level="12">
+<rule id="160102" level="12">
   <decoded_as>CPU_health</decoded_as>
   <field type="pcre2" name="cpu_usage_%">^(0*[8-9]\d|0*[1-9]\d{2,})</field>
   <description>CPU usage is high: $(cpu_usage_%)%</description>
@@ -883,7 +883,7 @@
 </rule>
 
 <!-- High disk usage -->
-<rule id="100103" level="12">
+<rule id="160103" level="12">
   <decoded_as>disk_health</decoded_as>
   <field type="pcre2" name="disk_usage_%">^(0*[7-9]\d|0*[1-9]\d{2,})</field>
   <description>Disk space is running low: $(disk_usage_%)%</description>
@@ -891,31 +891,31 @@
 </rule>
 
 <!-- CPU usage check -->
-<rule id="100104" level="3">
+<rule id="160104" level="3">
   <decoded_as>cpu_usage_check</decoded_as>
   <description>CPU usage metrics: $(totalCPU_used_%) of CPU is in use</description>
 </rule>
     
 <!-- Load average check -->
-<rule id="100105" level="3">
+<rule id="160105" level="3">
   <decoded_as>load_average_check</decoded_as>
   <description>Load average metrics: $(1min_loadAverage) for last 1 minute</description>
 </rule>
 
 <!-- Memory check -->
-<rule id="100106" level="3">
+<rule id="160106" level="3">
   <decoded_as>memory_check</decoded_as>
   <description>Memory metrics: $(memory_used_bytes) of memory is in use</description>
 </rule>
 
 <!-- Disk check -->
-<rule id="100107" level="3">
+<rule id="160107" level="3">
   <decoded_as>disk_check</decoded_as>
   <description>Disk metrics: $(disk_used) of storage is in use</description>
 </rule>
 
 <!-- Network check -->
-<rule id="100108" level="3">
+<rule id="160108" level="3">
   <decoded_as>network_check</decoded_as>
   <description>Network metrics: $(network_in) inbound | $(network_out) outbound</description>
 </rule>    
@@ -1026,28 +1026,28 @@
 
 <!--  Rule for the decoder (yara_decoder) -->
 <group name="yara,">
-  <rule id="100100" level="0">
+  <rule id="150100" level="0">
     <decoded_as>yara_decoder</decoded_as>
     <description>Yara grouping rule</description>
   </rule>
 
 
 <!--  YARA scan detects a positive match -->
-  <rule id="100110" level="7">
-    <if_sid>100100</if_sid>
+  <rule id="150110" level="7">
+    <if_sid>150100</if_sid>
     <match type="pcre2">wazuh-yara: INFO - Scan result: </match>
     <description>Yara scan result: File "$(yara_scanned_file)" is a positive match. Yara rule: $(yara_rule)</description>
 
   </rule>
-  <rule id="100120" level="7">
-    <if_sid>100100</if_sid>
+  <rule id="150120" level="7">
+    <if_sid>150100</if_sid>
     <match type="pcre2">wazuh-yara: INFO - Successfully deleted: </match>
     <description>Active Response: Successfully removed "$(yara_scanned_file)". YARA rule: $(yara_rule)</description>
   </rule>
 
 <!--  Wazuh encounters an error when deleting malware with a positive match -->
-  <rule id="100130" level="12">
-    <if_sid>100100</if_sid>
+  <rule id="150130" level="12">
+    <if_sid>150100</if_sid>
     <match type="pcre2">wazuh-yara: INFO - Error removing threat: </match>
     <description>Active Response: Error removing "$(yara_scanned_file)". YARA rule: $(yara_rule)</description>
   </rule>
@@ -1479,7 +1479,7 @@
 
 <group name="blackbit_ransomware,">
 
-  <rule id="100101" level="15">
+  <rule id="140101" level="15">
     <if_sid>61615</if_sid>
     <field name="win.eventdata.eventType" type="pcre2" >^SetValue$</field>
     <field name="win.eventdata.targetObject" type="pcre2" >HKCR\\\\BlackBit\\\\shell\\\\open\\\\command\\\\\(Default\)</field>
@@ -1489,7 +1489,7 @@
     </mitre>
   </rule>
 
-  <rule id="100102" level="15">
+  <rule id="140102" level="15">
     <if_sid>61614</if_sid>
     <field name="win.eventdata.eventType" type="pcre2" >^CreateKey$</field>
     <field name="win.eventdata.targetObject" type="pcre2" >HKCR\\\\BlackBit\\\\shell\\\\open</field>
@@ -1500,7 +1500,7 @@
   </rule>
 
 <!-- Suspicious .bat file creation -->
-  <rule id="100103" level="12">
+  <rule id="140103" level="12">
     <if_sid>61613</if_sid>
     <field name="win.eventdata.image" type="pcre2">\.exe</field>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)[c-z]:\\\\Users\\\\.+\\\\AppData\\\\Roaming\\\\Microsoft\\\\.+\\\\Startup\\\\.*bat</field>
@@ -1511,7 +1511,7 @@
   </rule>
 
 <!-- Suspicious .exe file creation -->
-  <rule id="100104" level="12">
+  <rule id="140104" level="12">
     <if_sid>61613</if_sid>
     <field name="win.eventdata.image" type="pcre2">\.exe</field>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)[c-z]:\\\\Windows\\\\winlogon.exe</field>
@@ -1522,7 +1522,7 @@
   </rule>
 
 <!-- Suspicious .exe file creation -->
-  <rule id="100105" level="12">
+  <rule id="140105" level="12">
     <if_sid>61613</if_sid>
     <field name="win.eventdata.image" type="pcre2">\.exe</field>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)[C-Z]:\\\\ProgramData\\\\.*\\\\Startup\\\\winlogon.exe</field>
@@ -1533,7 +1533,7 @@
   </rule>
 
 <!-- Suspicious file creation -->
-  <rule id="100106" level="15">
+  <rule id="140106" level="15">
     <if_sid>61613</if_sid>
     <field name="win.eventdata.image" type="pcre2">C:\\\\Windows\\\\system32\\\\svchost.exe</field>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)[C-Z]:\\\\Windows\\\\System32\\\\Tasks\\\\BlackBit</field>
@@ -1543,7 +1543,7 @@
     </mitre>
   </rule>
 
-  <rule id="100107" level="15">
+  <rule id="140107" level="15">
     <if_sid>61615</if_sid>
     <field name="win.eventdata.eventType" type="pcre2">^SetValue$</field>
     <field name="win.eventdata.targetObject" type="pcre2">HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Schedule\\\\TaskCache\\\\Tree\\\\BlackBit\\\\.*</field>
@@ -1553,7 +1553,7 @@
     </mitre>
   </rule>
 
-  <rule id="100108" level="15">
+  <rule id="140108" level="15">
     <if_sid>61614</if_sid>
     <field name="win.eventdata.eventType" type="pcre2">^CreateKey$</field>
     <field name="win.eventdata.targetObject" type="pcre2">HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Schedule\\\\TaskCache\\\\Tree\\\\BlackBit</field>
@@ -1563,7 +1563,7 @@
     </mitre>
   </rule>
 
-  <rule id="100109" level="15">
+  <rule id="140109" level="15">
     <if_sid>92032</if_sid>
     <field name="win.eventdata.CommandLine" type="pcre2">(?i)schtasks\s\s\/CREATE\s\/SC\sONLOGON\s\/TN\sBlackBit\s\/TR</field>
     <description>A Task Scheduler entry is created for persistence. Blackbit ransomware activity detected.</description>
@@ -1573,7 +1573,7 @@
     </mitre>
   </rule>
 
-  <rule id="100110" level="12">
+  <rule id="140110" level="12">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.CommandLine" type="pcre2">(?i)\/C\snetsh\sadvfirewall\sset\scurrentprofile\sstate\soff</field>
     <description>Windows Defender Firewall disabled. Possible Blackbit ransomware activity detected.</description>
@@ -1583,7 +1583,7 @@
     </mitre>
   </rule>
 
-  <rule id="100111" level="12">
+  <rule id="140111" level="12">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.CommandLine" type="pcre2">(?i)\/C\swmic\sshadowcopy\sdelete</field>
     <description>Shadow copies have been deleted. Possible Blackbit ransomware activity detected.</description>
@@ -1594,7 +1594,7 @@
   </rule>
 
   <!-- Ransom note file creation -->
-  <rule id="100112" level="12" timeframe="100" frequency="2">
+  <rule id="140112" level="12" timeframe="100" frequency="2">
     <if_sid>61613</if_sid>
     <field name="win.eventdata.image" type="pcre2">\.exe</field>
     <field name="win.eventdata.targetFilename" type="pcre2">(?i)[C-Z]:.*.\\Restore-My-Files.txt</field>
@@ -1604,7 +1604,7 @@
     </mitre>
   </rule>
 
-  <rule id="100113" level="12">
+  <rule id="140113" level="12">
     <if_sid>61615</if_sid>
     <field name="win.eventdata.eventType" type="pcre2">^SetValue$</field>
      <field name="win.eventdata.image" type="pcre2">\.exe</field>
