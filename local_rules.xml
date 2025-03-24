@@ -68,7 +68,7 @@
 </group>
 
 <group name="malware_detection,fin7,">
-  <rule id="100002" level="0">
+  <rule id="190002" level="0">
     <if_sid>61609</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)excel.exe</field>
     <description>Application $(win.eventdata.imageLoaded) loaded by excel.exe.</description>
@@ -78,8 +78,8 @@
     </mitre>
   </rule>
  
-  <rule id="100003" level="3">
-    <if_sid>100002</if_sid>
+  <rule id="190003" level="3">
+    <if_sid>190002</if_sid>
     <field name="win.eventdata.imageLoaded" type="pcre2">(?i)(.xll|.xla|.xlam)</field>
     <description>Add-in $(win.eventdata.originalFileName) loaded by excel.exe.</description>
     <mitre>
@@ -88,8 +88,8 @@
     </mitre>
   </rule>
  
-  <rule id="100004" level="7">
-    <if_sid>100003</if_sid>
+  <rule id="190004" level="7">
+    <if_sid>190003</if_sid>
     <field name="win.eventdata.signed" type="pcre2">^false$</field>
     <description>Unsigned add-in $(win.eventdata.originalFileName) loaded by excel.exe. Possible malicious activity.</description>
     <mitre>
@@ -102,15 +102,15 @@
 </group>
 
 <group name="malware_detection,fin7,">
-  <rule id="100005" level="0">
+  <rule id="190005" level="0">
     <if_sid>61600</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)excel.exe</field>
     <field name="win.system.eventID" type="pcre2">^22$</field>
     <description>Excel made a network request.</description>
   </rule>
  
-  <rule id="100006" level="15">
-    <if_sid>100005</if_sid>
+  <rule id="190006" level="15">
+    <if_sid>190005</if_sid>
     <field name="win.eventdata.queryName" type="pcre2">(?i)(physiciansofficenews.com|thechinastyle.com|divorceradio.com)</field>
     <description>Excel made a network request to JSSLoader dropper domains.</description>
     <mitre>
@@ -120,7 +120,7 @@
 </group>
 
 <group name="malware_detection,fin7,">
-  <rule id="100007" level="0">
+  <rule id="190007" level="0">
     <if_sid>61603</if_sid>
     <field name="win.eventdata.parentImage" type="pcre2">(?i)excel.exe</field>
     <description>$(win.eventdata.image) Process launched by excel.</description>
@@ -129,8 +129,8 @@
     </mitre>
   </rule>
  
-  <rule id="100008" level="7">
-    <if_sid>100007</if_sid>
+  <rule id="190008" level="7">
+    <if_sid>190007</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i).tmp</field>
     <description>$(win.eventdata.image) executable masquerading as a TMP file was launched by excel. Possible FIN7 JSSLoader execution.</description>
     <mitre>
@@ -140,8 +140,8 @@
     </mitre>
   </rule>
  
-  <rule id="100009" level="15">
-    <if_sid>100008</if_sid>
+  <rule id="190009" level="15">
+    <if_sid>190008</if_sid>
     <field name="win.eventdata.image" type="pcre2">(?i)DNA</field>
     <description>$(win.eventdata.image) executable masquerading as a .TMP file launched by excel. DNA prefix is typically associated with FIN7 JSSLoader.</description>
     <mitre>
@@ -233,7 +233,7 @@
 
 <group name="syscheck,malware,">
 
-  <rule id="100008" level="10">
+  <rule id="180008" level="10">
     <if_sid>554</if_sid>
     <field name="sha256">5b56c5d86347e164c6e571c86dbf5b1535eae6b979fede6ed66b01e79ea33b7b</field>
     <description>Malware Hash Match: Pandora Ransomware Executable Detected</description>
@@ -243,7 +243,7 @@
 
 <group name="windows,sysmon">
 
-  <rule id="100009" level="12">
+  <rule id="180009" level="12">
     <if_group>windows</if_group>
     <field name="win.system.eventID">1</field>
     <match>vssadmin.exe delete shadows</match>
@@ -762,42 +762,42 @@
 
 <group name="windows">
  
- <rule id="100002" level="0">
+ <rule id="170002" level="0">
   <if_sid>18101</if_sid>
   <id>2003</id>
   <description>Firewall configuration changed</description>
 </rule>
-<rule id="100003" level="3">
-  <if_sid>100002</if_sid>
+<rule id="170003" level="3">
+  <if_sid>170002</if_sid>
   <regex>Type: Enable \.* Value: Yes</regex>
   <description>Firewall enabled for private/domain profile</description>
 </rule>
-<rule id="100004" level="3">
-  <if_sid>100003</if_sid>
+<rule id="170004" level="3">
+  <if_sid>170003</if_sid>
   <regex>Public profile</regex>
   <description>Firewall enabled for public profile</description>
 </rule>
-<rule id="100005" level="3">
-  <if_sid>100002</if_sid>
+<rule id="170005" level="3">
+  <if_sid>170002</if_sid>
   <regex>Type: Enable \.* Value: No</regex>
   <description>Firewall disabled for private/domain profile</description>
 </rule>
-<rule id="100006" level="4">
-  <if_sid>100005</if_sid>
+<rule id="170006" level="4">
+  <if_sid>170005</if_sid>
   <regex>Public profile</regex>
   <description>Firewall disabled for public profile</description>
 </rule>
-<rule id="100007" level="3">
+<rule id="170007" level="3">
   <if_sid>18101</if_sid>
   <id>2004</id>
   <description>Firewall rule created</description>
 </rule>
-<rule id="100008" level="3">
+<rule id="170008" level="3">
   <if_sid>18101</if_sid>
   <id>2005</id>
   <description>Firewall rule modified</description>
 </rule>
-<rule id="100009" level="3">
+<rule id="170009" level="3">
   <if_sid>18101</if_sid>
   <id>2006</id>
   <description>Firewall rule deleted</description>
